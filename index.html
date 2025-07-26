@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Linking to StyleSheet -->
+        <link rel="stylesheet" href="style.css">
+        <!-- Font Links -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">    </head>
+    <body>
+        <div>
+        <div class="top-bar">
+        <h2 class="leftTitle">calc</h2>
+
+        <div class="themeSwitcher">
+            <div class="themeNums">
+                <span data-theme="default">1</span>
+                <span data-theme="light">2</span>
+                <span data-theme="dark">3</span>
+            </div>
+
+            <div class="themeControls">
+            <span class="theme-label">THEME</span>
+            <div class="toggleWrapper">
+                <!-- your toggle input and dots here -->
+                <input type="range" min="1" max="3" id="themeToggle" />
+                <div class="dots">
+                <span></span><span></span><span></span>
+                </div>
+                <div class="knob"></div>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+            <div class="screen" id="screen">
+                <h1 id="screenText"></h1>
+            </div>
+
+            <div class="calculator">
+                <div class="row">
+                    <button onclick="addDigit(7)" class="key">7</button>
+                    <button onclick="addDigit(8)" class="key">8</button>
+                    <button onclick="addDigit(9)" class="key">9</button>
+                    <button onclick="del()" class="key specialKey">DEL</button>
+                </div>
+                <div class="row">
+                    <button onclick="addDigit(4)" class="key">4</button>
+                    <button onclick="addDigit(5)" class="key">5</button>
+                    <button onclick="addDigit(6)" class="key">6</button>
+                    <button onclick="addDigit('+')" class="key">+</button>
+                </div>
+                <div class="row">
+                    <button onclick="addDigit(1)" class="key">1</button>
+                    <button onclick="addDigit(2)" class="key">2</button>
+                    <button onclick="addDigit(3)" class="key">3</button>
+                    <button onclick="addDigit('-')" class="key">-</button>
+                </div>
+                <div class="row">
+                    <button onclick="addDigit('.')" class="key">.</button>
+                    <button onclick="addDigit(0)" class="key">0</button>
+                    <button onclick="changeSymbolApeal('/')" class="key">÷</button>
+                    <button onclick="changeSymbolApeal('*')" class="key">x</button>
+                </div>
+                <div class="row">
+                    <button onclick="reset()" class="key specialKey">RESET</button>
+                    <button onclick="equal()" class="key equalKey">=</button>
+                </div>
+            </div>
+        </div>
+    <script>
+        var screenText = document.getElementById("screenText");
+        var mathEquation = ""; 
+        var mathResult = "";
+        function isOperator(char) {
+            return ['+', '-', '*', '/'].includes(char);
+        }
+
+        function changeSymbolApeal(v){
+            if(v == '/'){
+                if (!mathEquation || isOperator(mathEquation.slice(-1))) return
+                screenText.innerText += "÷"
+                mathEquation += '/'
+            }
+            else if(v == '*'){
+                if (!mathEquation || isOperator(mathEquation.slice(-1))) return
+                screenText.innerText += "x"
+                mathEquation += '*'
+            }
+        }
+
+        function addDigit(num) {
+            // If the input is an operator...
+            if (isOperator(num)) {
+                // Reject if mathEquation is empty or last char is operator
+                if (!mathEquation || isOperator(mathEquation.slice(-1))) {
+                    return; // don't add it
+                }
+            }
+
+            if (num === '.') {
+                if (!mathEquation) return; // no starting with '.'
+
+                var lastOperatorIndex = Math.max(
+                    mathEquation.lastIndexOf('+'),
+                    mathEquation.lastIndexOf('-'),
+                    mathEquation.lastIndexOf('*'),
+                    mathEquation.lastIndexOf('/')
+                );
+
+                var currentNumber = mathEquation.slice(lastOperatorIndex + 1);
+
+                if (currentNumber.includes('.')) return; // block multiple decimals
+            }
+
+            mathEquation += num; 
+            screenText.innerText += num
+        }
+
+        function del() {
+            if (mathEquation && mathEquation.length > 0) {
+                // Remove last char from mathEquation string
+                mathEquation = mathEquation.slice(0, -1);
+
+                // Also remove last char from screenText display
+                screenText.innerText = screenText.innerText.slice(0, -1);
+            }
+        }
+
+        function equal(){
+            if(mathEquation){
+                try{
+                    mathResult = eval(mathEquation);
+                    screenText.innerText = mathResult;
+                }
+                catch(e){
+                    screenText.innerText = "ERROR";
+                }
+            }
+        }
+
+        function reset() {
+            // screenText = "";
+            screenText.innerText = "";
+            mathEquation = "";
+        }
+        
+
+ // === THEME SYSTEM ===
+    var themes = ["default", "light", "dark"];
+    var currentIndex = 0;
+
+    var knob = document.querySelector('.knob');
+    var toggleWrapper = document.querySelector('.toggleWrapper');
+
+    function updateKnobPosition(index) {
+        var positions = ['6px', '32px', '54px'];
+        knob.style.left = positions[index];
+    }
+
+    function applyTheme(index) {
+        var theme = themes[index];
+        document.body.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        updateKnobPosition(index);
+        console.log("Theme set to:", theme);
+    }
+
+    toggleWrapper.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % themes.length;
+        applyTheme(currentIndex);
+    });
+
+    window.onload = function () {
+        var savedTheme = localStorage.getItem("theme");
+        if (savedTheme && themes.includes(savedTheme)) {
+            currentIndex = themes.indexOf(savedTheme);
+        }
+        applyTheme(currentIndex);
+    };
+    </script>
+    </body>
+</html>

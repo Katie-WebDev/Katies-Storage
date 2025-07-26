@@ -1,0 +1,346 @@
+/* Reset and Base */
+* {
+    font-family: "League Spartan";
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Calculator Container */
+.calculator {
+    border-radius: 7px;
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
+}
+/* Screen */
+.screen {
+    border-radius: 6px;
+    padding: 2rem;
+    padding-top: 3rem;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    height: 2rem;
+}
+#screenText {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+}
+/* Titles */
+.leftTitle {
+    text-align: left;
+}
+/* Buttons */
+.key, .specialKey, .equalKey {
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    margin: 3px;
+    font-size: 1.5rem;
+    flex: 1;
+    font-weight: bolder;
+    cursor: pointer;
+}
+/* Row Layout */
+.row {
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 1rem;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    padding: 1rem 2rem;
+    position: relative;
+    top: 10px;
+}
+/* Theme Switcher Container */
+.themeSwitcher {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* aligns contents to the right */
+    font-weight: bold;
+    font-size: 0.7rem;
+}
+/* Theme Header Label (unused in your code but kept) */
+.themeHeader {
+    margin-bottom: 0.3rem;
+    text-align: right;
+}
+
+/* Theme Number Buttons */
+.themeNums {
+    display: flex;
+    justify-content: space-between;
+    width: 70px; /* matches toggle width */
+    margin-bottom: 0.3rem;
+}
+
+.themeNums span {
+    width: 20px;
+    text-align: center;
+}
+
+/* Theme Controls Label + Toggle Inline */
+.themeControls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* spacing between label and toggle */
+}
+
+.theme-label {
+    font-weight: bold;
+    font-size: 0.7rem;
+    user-select: none;
+}
+
+/* Toggle Container */
+.toggleWrapper {
+    position: relative;
+    width: 70px;
+    height: 26px;
+    border-radius: 13px;
+    display: flex;
+    align-items: right;
+    justify-content: space-between;
+    padding: 0 5px;
+    cursor: pointer;
+}
+/* Toggle Dots */
+.dots {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    z-index: 1;
+}
+
+.dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+/* Toggle Knob */
+.knob {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: 4px;
+    left: 6px;
+    transition: left 0.3s ease;
+    z-index: 2;
+}
+/* Hidden Toggle Input */
+#themeToggle {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    cursor: pointer;
+}
+
+
+/*
+==========================
+==========================
+
+    Theme: default
+==========================
+==========================
+*/
+body[data-theme="default"] {
+    background-color: #3a4764;
+}
+
+body[data-theme="default"] .calculator{
+    background-color: #25304f;
+}
+body[data-theme="default"] .screen{
+    background-color: #181f2f;
+}
+body[data-theme="default"] #screenText{
+    color: #fff;
+}
+body[data-theme="default"] .leftTitle{
+    color: #fff;
+}
+body[data-theme="default"] .key{
+    background-color: #e6e6e6;
+    box-shadow: 0 4px 0 #d1bcac;
+    color: #474b53;
+}
+body[data-theme="default"] .key:active {
+    background-color: #fff;
+}
+
+body[data-theme="default"] .specialKey {
+    background-color: #646F95;
+    color: #fff;
+    box-shadow: 0 4px 0 #586A9D;
+}
+
+body[data-theme="default"] .specialKey:active {
+    background-color: #8b98c7;
+}
+
+body[data-theme="default"] .equalKey {
+    background-color: #b93f2e;
+    color: #fff;
+    box-shadow: 0 4px 0 #8B2922;
+}
+
+body[data-theme="default"] .equalKey:active {
+    background-color: #f27f70;
+}
+body[data-theme="default"] .top-bar{
+    color: white;
+}
+body[data-theme="default"] .themeSwitcher{
+    color: white;
+}
+body[data-theme="default"] .toggleWrapper{
+    background-color: #232c43;
+}
+body[data-theme="default"] .knob{
+    background-color: red;
+}
+
+
+/*
+==========================
+==========================
+
+    Theme: Light
+==========================
+==========================
+*/
+body[data-theme="light"] {
+    background-color: #E6E6E6;
+}
+body[data-theme="light"] * {
+    color: #35352B;
+}
+
+body[data-theme="light"] .calculator{
+    background-color: #D0CBCB;
+}
+body[data-theme="light"] .screen{
+    background-color: #EDEDED;
+}
+body[data-theme="light"] .key{
+    background-color: #E6E6E6;
+    box-shadow: 0 4px 0 #a39d9b;
+}
+body[data-theme="light"] .key:active {
+    background-color: #fff;
+}
+
+body[data-theme="light"] .specialKey {
+    background-color: #386d70;
+    color: #fff;
+    box-shadow: 0 4px 0 #1b6065;
+}
+
+body[data-theme="light"] .specialKey:active {
+    background-color: #83c7c3;
+}
+
+body[data-theme="light"] .equalKey {
+    background-color: #CA5F02;
+    color: #fff;
+    box-shadow: 0 4px 0 #8A3B02;
+}
+
+body[data-theme="light"] .equalKey:active {
+    background-color: #e29339;
+}
+body[data-theme="light"] .top-bar{
+    color: white;
+}
+body[data-theme="light"] .themeSwitcher{
+    color: white;
+}
+body[data-theme="light"] .toggleWrapper{
+    background-color: #D0CBCB;
+}
+body[data-theme="light"] .knob{
+    background-color: #d16200;
+}
+
+
+/*
+==========================
+==========================
+
+    Theme: Dark
+==========================
+==========================
+*/
+body[data-theme="dark"] {
+    background-color: #1D0637;
+}
+body[data-theme="dark"] * {
+    color: #FFF260;
+}
+
+body[data-theme="dark"] .calculator{
+    background-color: #1d0934;
+}
+body[data-theme="dark"] .screen{
+    background-color: #1d0934;
+}
+body[data-theme="dark"] .key{
+    background-color: #341c4f;
+    box-shadow: 0 4px 0 #800080 ;
+}
+body[data-theme="dark"] .key:active {
+    background-color: #c157ff;
+}
+
+body[data-theme="dark"] .specialKey {
+    background-color: #58077d;
+    color: #fff;
+    box-shadow: 0 4px 0 #871c9c;
+}
+
+body[data-theme="dark"] .specialKey:active {
+    background-color: #7e1b9c;
+}
+
+body[data-theme="dark"] .equalKey {
+    background-color: #00e0d1;
+    color: #1B2427;
+    box-shadow: 0 4px 0 #6cf9f2;
+}
+
+body[data-theme="dark"] .equalKey:active {
+    background-color: #66ffde;
+}
+body[data-theme="dark"] .top-bar{
+    color: white;
+}
+body[data-theme="dark"] .themeSwitcher{
+    color: white;
+}
+body[data-theme="dark"] .toggleWrapper{
+    background-color: #1d0934;
+}
+body[data-theme="dark"] .knob{
+    background-color: #00e0d1;
+}
